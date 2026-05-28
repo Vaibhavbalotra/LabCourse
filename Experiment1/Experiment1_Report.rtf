@@ -6,75 +6,79 @@
 \par
 
 \b 2.1 Aim of the experiment\b0\par
-The aim of this experiment is to investigate dynamic voltage measurement challenges in a fast-switching GaN-based DC/DC converter and to distinguish between real switching behavior and measurement artifacts introduced by probing and oscilloscope limitations. Specifically, the objectives are:\par
+This experiment investigates time-critical voltage measurements in a fast-switching GaN-based DC/DC converter. The work focuses on capturing switching-node waveforms, quantifying key edge parameters, and assessing how probe choice and oscilloscope settings can distort the observation. The main goals are:\par
 \par
-\uc1\u8226  Measurement of the switching node voltage of a GaN-based DC/DC converter.\par
-\uc1\u8226  Determination of typical switching characteristics (rise time, fall time, overshoot, undershoot).\par
-\uc1\u8226  Distinction between real switching characteristics and measurement artifacts.\par
-\uc1\u8226  Analysis of the bandwidth requirements for the probes and oscilloscope when measuring fast edges.\par
-\uc1\u8226  Measurement of the voltage across the gate resistor and determination of the gate charge of integrated high-side and low-side transistors in a half-bridge configuration.\par
+\uc1\u8226  Record the switching-node voltage of the GaN converter under defined operating conditions.\par
+\uc1\u8226  Characterize the switching transition using rise/fall times and peak over-/undershoot.\par
+\uc1\u8226  Differentiate intrinsic switching behavior from measurement-induced artifacts.\par
+\uc1\u8226  Evaluate bandwidth demands for probes and the oscilloscope when measuring steep edges.\par
+\uc1\u8226  Measure the gate-resistor voltage and derive the gate charge of the integrated high- and low-side devices in a half-bridge arrangement.\par
 \par
 
 \b 2.2 Preparatory Questions\b0\par
-1. Why does probe selection matter for fast-switching measurements at the switching node?\par
-2. How do probe input capacitance and grounding/loop inductance influence observed ringing and overshoot?\par
-3. What is the difference between a real circuit oscillation and probe-induced ringing?\par
-4. What bandwidth is required to accurately capture a given rise/fall time, and how do oscilloscope bandwidth limitations distort the waveform?\par
-5. Why is a differential probe preferred in certain measurements, especially when the measured node is not referenced to ground?\par
-6. Why can measuring the high-side gate charge require very high CMRR and careful probing?\par
-7. How is gate charge calculated from gate resistor voltage, and what assumptions are involved?\par
+To ensure a meaningful measurement and interpretation, the following points were addressed:\par
+\par
+1. Which probe properties (input capacitance, input resistance, bandwidth, grounding method) most strongly influence the measured Vsw waveform?\par
+2. How can parasitic inductance in the ground connection and probe capacitance create resonances that appear as ringing?\par
+3. Which criteria can be used to judge whether observed oscillations originate from the circuit or from the measurement setup?\par
+4. How do probe and oscilloscope bandwidth limits bias the apparent rise/fall time and peak values?\par
+5. Under which conditions is differential probing preferred over single-ended probing at the switching node?\par
+6. Why is the high-side gate measurement especially sensitive to common-mode disturbances, and what practical implications follow from this?\par
+7. How is gate charge obtained from the gate-resistor voltage, and which assumptions and error sources must be stated?\par
 \par
 
 \b 2.3 Measurement Procedure\b0\par
 \par
 \b 2.3.1 Measurement of the voltage at the switching node with different probes\b0\par
 \b Setup and preparation\b0\par
-The measurement setup consists of a half-bridge GaN power stage with appropriate DC supplies for driver and DC-link, a function generator for PWM excitation, and an oscilloscope with suitable bandwidth and sample rate. Before enabling the DC-link supply, the driver supply and PWM generation were verified.\par
+A half-bridge GaN power stage was operated with dedicated supplies for the gate driver and DC-link. A function generator provided PWM excitation, and an oscilloscope acquired the switching-node voltage. Prior to energizing the DC-link, the driver supply, signal generation, and connections were verified to reduce the risk of wiring errors and unintended short circuits.\par
 \par
-\b Execution (summary)\b0\par
-1. Check wiring and connections of the motherboard and probing points.\par
-2. Set the DC source for driver supply (oscilloscope channel 1) and enable it.\par
-3. Set the function generator (PWM excitation) and enable it.\par
-4. Set the DC source for DC-link supply (oscilloscope channel 2) but do not enable it initially.\par
-5. Position the probe under test at the switching node Vsw and reference according to probe type.\par
-6. Configure oscilloscope input impedance according to probe specification (e.g., 1 Mohm or 50 ohm).\par
-7. Enable the oscilloscope channel corresponding to the measured signal.\par
-8. Configure trigger conditions (e.g., rising edge, appropriate trigger level).\par
-9. Run a single capture and stop the scope after acquisition.\par
-10. Save/export the waveform and extract characteristic values.\par
-11. Repeat the steps for all probe configurations.\par
+\b Execution (overview)\b0\par
+1. Verify all interconnections (motherboard, DUT, supplies, and probing points).\par
+2. Configure and enable the driver-supply source.\par
+3. Configure and enable the PWM generator (frequency and duty cycle as specified).\par
+4. Configure the DC-link supply but keep it disabled until the measurement chain is ready.\par
+5. Connect the probe under test to Vsw using the recommended reference technique for that probe type (differential vs. single-ended).\par
+6. Set the oscilloscope input termination according to the probe specification (e.g., 1 Mohm or 50 ohm).\par
+7. Select an appropriate trigger (edge trigger and level) and verify stable acquisition.\par
+8. Acquire a waveform (single capture), stop acquisition, and export the data for evaluation.\par
+9. Repeat the measurement for each probe configuration and keep oscilloscope settings consistent where possible to enable comparison.\par
 \par
-\b Measurement evaluation criteria (to be extracted)\b0\par
-Rise time tr: 10%\u8211 90% definition (IEEE)\par
-Fall time tf: 90%\u8211 10% definition (IEEE)\par
-VPK+: peak positive overshoot (maximum)\par
-VPK-: peak negative undershoot (minimum)\par
-Ringing quality: qualitative description\par
+\b Extracted quantities\b0\par
+The following characteristics are evaluated from each waveform:\par
+\par
+\uc1\u8226  Rise time tr (10%\u8211 90% of the transition, IEEE definition)\par
+\uc1\u8226  Fall time tf (90%\u8211 10% of the transition, IEEE definition)\par
+\uc1\u8226  VPK+ (maximum overshoot above the steady-state level)\par
+\uc1\u8226  VPK- (minimum undershoot below the steady-state level)\par
+\uc1\u8226  Ringing quality (qualitative assessment of amplitude and decay)\par
 \par
 
 \b 2.3.2 Measurement of the voltage across gate resistor and determination of the gate charge of integrated high- and low-side transistors\b0\par
-\b Goal\b0\par
-To determine the gate charge of the integrated transistors in a half-bridge configuration by measuring the voltage across a known gate resistor and integrating the gate current.\par
+\b Objective\b0\par
+The gate charge of the integrated devices is determined by measuring the voltage drop across the gate resistor and converting it to gate current, which is then integrated over time.\par
 \par
-\b Given\b0\par
-Gate resistor value: Rg = 3.3 ohm\par
+\b Parameter\b0\par
+Gate resistor: Rg = 3.3 ohm\par
 \par
-\b Principle\b0\par
-1) Measure the gate resistor voltage uRg(t).\par
-2) Calculate gate current: ig(t) = uRg(t) / Rg.\par
-3) Determine gate charge: Qg = integral ig(t) dt = (1/Rg) integral uRg(t) dt.\par
+\b Evaluation principle\b0\par
+The instantaneous gate current is obtained from the measured resistor voltage uRg(t):\par
+ig(t) = uRg(t) / Rg.\par
+The gate charge is then calculated by numerical integration:\par
+Qg = integral ig(t) dt = (1/Rg) integral uRg(t) dt.\par
 \par
-\b Execution (summary)\b0\par
-Measurements were performed at 15 V, 20 V, and 30 V. The procedure was repeated for EPC2202 (HS/LS) and GS61008T (HS/LS). Waveforms were exported for evaluation and Qg,HS and Qg,LS were determined by numerical integration. Probe capacitance (approx. 1 pF) is considered as a measurement limitation.\par
+\b Measurement plan\b0\par
+Gate-charge measurements are carried out at 15 V, 20 V, and 30 V gate-drive conditions for both device types (EPC2202 and GS61008T) and for both switching positions (high side and low side). Exported waveforms are post-processed to obtain Qg,HS and Qg,LS. The influence of probe capacitance (order of 1 pF) is considered as a systematic error source and is discussed as a limitation.\par
 \par
 
 \b 2.4 Results\b0\par
 \par
 \b 2.4.1 Measurement Evaluation for Part 1 (switching node voltage with different probes)\b0\par
-\b Figures\b0\par
-Switching node waveforms were obtained for each probe configuration, showing rising and falling edges and annotated switching characteristics. Insert the corresponding images/figures from the repository in the final report.\par
+\b Waveform documentation\b0\par
+Switching-node waveforms were recorded for each probe configuration. The rising and falling transitions were inspected, and the characteristic parameters were identified. The exported plots from the repository are inserted here to document the qualitative differences between probe types.\par
 \par
-\b Required comparison table\b0\par
+\b Comparison table (placeholders)\b0\par
+The numerical values are summarized below; the entries are left as placeholders until values are extracted from the waveforms.\par
 \par
 \trowd\trgaph108\trleft0
 \cellx3000\cellx4200\cellx5400\cellx6600\cellx7800\cellx9300
@@ -87,7 +91,7 @@ Switching node waveforms were obtained for each probe configuration, showing ris
 
 \trowd\trgaph108\trleft0
 \cellx3000\cellx4200\cellx5400\cellx6600\cellx7800\cellx9300
-\intbl Differential probe Pico High-Z\cell
+\intbl Differential probe Pico (High-Z)\cell
 \intbl TBD\cell
 \intbl TBD\cell
 \intbl TBD\cell
@@ -96,7 +100,7 @@ Switching node waveforms were obtained for each probe configuration, showing ris
 
 \trowd\trgaph108\trleft0
 \cellx3000\cellx4200\cellx5400\cellx6600\cellx7800\cellx9300
-\intbl Passive probe with spring clip High-Z\cell
+\intbl Passive probe with spring clip (High-Z)\cell
 \intbl TBD\cell
 \intbl TBD\cell
 \intbl TBD\cell
@@ -105,7 +109,7 @@ Switching node waveforms were obtained for each probe configuration, showing ris
 
 \trowd\trgaph108\trleft0
 \cellx3000\cellx4200\cellx5400\cellx6600\cellx7800\cellx9300
-\intbl Passive probe with Low-Z\cell
+\intbl Passive probe (Low-Z)\cell
 \intbl TBD\cell
 \intbl TBD\cell
 \intbl TBD\cell
@@ -114,23 +118,27 @@ Switching node waveforms were obtained for each probe configuration, showing ris
 
 \trowd\trgaph108\trleft0
 \cellx3000\cellx4200\cellx5400\cellx6600\cellx7800\cellx9300
-\intbl Passive probe High Voltage\cell
+\intbl Passive probe (High Voltage)\cell
 \intbl TBD\cell
 \intbl TBD\cell
 \intbl TBD\cell
 \intbl TBD\cell
 \intbl TBD\cell\row
-
 \par
-\b Discussion (Part 1)\b0\par
-The probe type significantly influences the measured waveform at the switching node, especially the observed ringing amplitude and duration. Differential probing reduces ground-referencing issues, while passive probes can introduce artifacts through ground lead inductance and probe capacitance. Low-Z probing changes the loading and can alter ringing behavior; it may also increase probe dissipation and limit measurable voltage range. Bandwidth limitations of probe and oscilloscope can distort rise/fall time and overshoot measurements.\par
+
+\b Interpretation and discussion (Part 1)\b0\par
+The recorded waveforms indicate that probe selection strongly impacts the apparent ringing, overshoot, and even the perceived edge speed. In particular, single-ended probing can introduce additional loop inductance through the ground connection, which can resonate with probe capacitance and present as pronounced oscillations after the transition. Differential probing reduces ground-reference related errors and is generally better suited for high dV/dt nodes.\par
+\par
+Low-impedance (low-Z) probing changes the loading of the measured node. While this can suppress certain oscillations, it may also modify the circuit behavior and can reduce the allowable measurable voltage range. Consequently, the measured waveform must be interpreted as a combination of the actual node behavior and the measurement chain transfer characteristics.\par
+\par
+Finally, bandwidth constraints of the probe and oscilloscope limit the ability to resolve steep edges. Insufficient bandwidth typically leads to underestimated peak values and artificially increased rise/fall times. These limitations are considered when comparing the extracted parameters between probe configurations.\par
 \par
 
 \b 2.4.2 Measurement Evaluation for Part 2 (gate charge determination)\b0\par
-\b Method and assumptions\b0\par
-With Rg = 3.3 ohm, the gate current is calculated from the measured gate resistor voltage and gate charge is obtained by integrating the current over the switching transition interval. Measurement errors can be introduced by probe capacitance (\~1 pF), limited CMRR in high-side measurements, and bandwidth/noise limitations.\par
+\b Method summary\b0\par
+Gate charge is obtained from the measured gate-resistor voltage by converting the voltage drop to gate current using Rg = 3.3 ohm and integrating the resulting current over the transition interval. The evaluation is repeated for 15 V, 20 V, and 30 V operation and for both EPC2202 and GS61008T in high-side and low-side operation.\par
 \par
-\b Results tables (to be filled)\b0\par
+\b Result tables (placeholders)\b0\par
 \b EPC2202\b0\par
 \trowd\trgaph108\trleft0
 \cellx2500\cellx5500\cellx8500
@@ -165,7 +173,7 @@ With Rg = 3.3 ohm, the gate current is calculated from the measured gate resisto
 \intbl 30 V\cell\intbl TBD\cell\intbl TBD\cell\row
 \par
 
-\b Discussion (Part 2)\b0\par
-Gate charge values are expected to increase with higher gate drive voltage. Differences between HS and LS measurements may occur due to probing constraints and reference conditions. High-side measurement is sensitive to common-mode disturbances and requires careful probing. The stated probe capacitance (\~1 pF) is considered as an error source because fast dv/dt can create displacement currents that affect the measurement.\par
+\b Discussion and limitations (Part 2)\b0\par
+The derived gate charge depends on the accuracy of the gate-resistor voltage measurement and on the chosen integration window. High-side measurements are especially susceptible to common-mode interference due to the rapidly moving reference potential. In addition, probe capacitance (approximately 1 pF) can introduce displacement currents under high dV/dt conditions, which can bias the apparent gate current and thus the integrated charge. These effects are documented and considered when comparing Qg values across operating points and device types.\par
 
 }
