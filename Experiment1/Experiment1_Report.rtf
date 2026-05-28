@@ -1,0 +1,171 @@
+{\rtf1\ansi\deff0
+{\fonttbl{\f0 Times New Roman;}}
+\fs24
+
+\b 2 Dynamic Switching Voltage Measurements (Experiment 1)\b0\par
+\par
+
+\b 2.1 Aim of the experiment\b0\par
+The aim of this experiment is to investigate dynamic voltage measurement challenges in a fast-switching GaN-based DC/DC converter and to distinguish between real switching behavior and measurement artifacts introduced by probing and oscilloscope limitations. Specifically, the objectives are:\par
+\par
+\uc1\u8226  Measurement of the switching node voltage of a GaN-based DC/DC converter.\par
+\uc1\u8226  Determination of typical switching characteristics (rise time, fall time, overshoot, undershoot).\par
+\uc1\u8226  Distinction between real switching characteristics and measurement artifacts.\par
+\uc1\u8226  Analysis of the bandwidth requirements for the probes and oscilloscope when measuring fast edges.\par
+\uc1\u8226  Measurement of the voltage across the gate resistor and determination of the gate charge of integrated high-side and low-side transistors in a half-bridge configuration.\par
+\par
+
+\b 2.2 Preparatory Questions\b0\par
+1. Why does probe selection matter for fast-switching measurements at the switching node?\par
+2. How do probe input capacitance and grounding/loop inductance influence observed ringing and overshoot?\par
+3. What is the difference between a real circuit oscillation and probe-induced ringing?\par
+4. What bandwidth is required to accurately capture a given rise/fall time, and how do oscilloscope bandwidth limitations distort the waveform?\par
+5. Why is a differential probe preferred in certain measurements, especially when the measured node is not referenced to ground?\par
+6. Why can measuring the high-side gate charge require very high CMRR and careful probing?\par
+7. How is gate charge calculated from gate resistor voltage, and what assumptions are involved?\par
+\par
+
+\b 2.3 Measurement Procedure\b0\par
+\par
+\b 2.3.1 Measurement of the voltage at the switching node with different probes\b0\par
+\b Setup and preparation\b0\par
+The measurement setup consists of a half-bridge GaN power stage with appropriate DC supplies for driver and DC-link, a function generator for PWM excitation, and an oscilloscope with suitable bandwidth and sample rate. Before enabling the DC-link supply, the driver supply and PWM generation were verified.\par
+\par
+\b Execution (summary)\b0\par
+1. Check wiring and connections of the motherboard and probing points.\par
+2. Set the DC source for driver supply (oscilloscope channel 1) and enable it.\par
+3. Set the function generator (PWM excitation) and enable it.\par
+4. Set the DC source for DC-link supply (oscilloscope channel 2) but do not enable it initially.\par
+5. Position the probe under test at the switching node Vsw and reference according to probe type.\par
+6. Configure oscilloscope input impedance according to probe specification (e.g., 1 Mohm or 50 ohm).\par
+7. Enable the oscilloscope channel corresponding to the measured signal.\par
+8. Configure trigger conditions (e.g., rising edge, appropriate trigger level).\par
+9. Run a single capture and stop the scope after acquisition.\par
+10. Save/export the waveform and extract characteristic values.\par
+11. Repeat the steps for all probe configurations.\par
+\par
+\b Measurement evaluation criteria (to be extracted)\b0\par
+Rise time tr: 10%\u8211 90% definition (IEEE)\par
+Fall time tf: 90%\u8211 10% definition (IEEE)\par
+VPK+: peak positive overshoot (maximum)\par
+VPK-: peak negative undershoot (minimum)\par
+Ringing quality: qualitative description\par
+\par
+
+\b 2.3.2 Measurement of the voltage across gate resistor and determination of the gate charge of integrated high- and low-side transistors\b0\par
+\b Goal\b0\par
+To determine the gate charge of the integrated transistors in a half-bridge configuration by measuring the voltage across a known gate resistor and integrating the gate current.\par
+\par
+\b Given\b0\par
+Gate resistor value: Rg = 3.3 ohm\par
+\par
+\b Principle\b0\par
+1) Measure the gate resistor voltage uRg(t).\par
+2) Calculate gate current: ig(t) = uRg(t) / Rg.\par
+3) Determine gate charge: Qg = integral ig(t) dt = (1/Rg) integral uRg(t) dt.\par
+\par
+\b Execution (summary)\b0\par
+Measurements were performed at 15 V, 20 V, and 30 V. The procedure was repeated for EPC2202 (HS/LS) and GS61008T (HS/LS). Waveforms were exported for evaluation and Qg,HS and Qg,LS were determined by numerical integration. Probe capacitance (approx. 1 pF) is considered as a measurement limitation.\par
+\par
+
+\b 2.4 Results\b0\par
+\par
+\b 2.4.1 Measurement Evaluation for Part 1 (switching node voltage with different probes)\b0\par
+\b Figures\b0\par
+Switching node waveforms were obtained for each probe configuration, showing rising and falling edges and annotated switching characteristics. Insert the corresponding images/figures from the repository in the final report.\par
+\par
+\b Required comparison table\b0\par
+\par
+\trowd\trgaph108\trleft0
+\cellx3000\cellx4200\cellx5400\cellx6600\cellx7800\cellx9300
+\intbl\b Probe\b0\cell
+\intbl\b tr [ns]\b0\cell
+\intbl\b VPK+ [V]\b0\cell
+\intbl\b tf [ns]\b0\cell
+\intbl\b VPK- [V]\b0\cell
+\intbl\b Ringing Quality\b0\cell\row
+
+\trowd\trgaph108\trleft0
+\cellx3000\cellx4200\cellx5400\cellx6600\cellx7800\cellx9300
+\intbl Differential probe Pico High-Z\cell
+\intbl TBD\cell
+\intbl TBD\cell
+\intbl TBD\cell
+\intbl TBD\cell
+\intbl TBD\cell\row
+
+\trowd\trgaph108\trleft0
+\cellx3000\cellx4200\cellx5400\cellx6600\cellx7800\cellx9300
+\intbl Passive probe with spring clip High-Z\cell
+\intbl TBD\cell
+\intbl TBD\cell
+\intbl TBD\cell
+\intbl TBD\cell
+\intbl TBD\cell\row
+
+\trowd\trgaph108\trleft0
+\cellx3000\cellx4200\cellx5400\cellx6600\cellx7800\cellx9300
+\intbl Passive probe with Low-Z\cell
+\intbl TBD\cell
+\intbl TBD\cell
+\intbl TBD\cell
+\intbl TBD\cell
+\intbl TBD\cell\row
+
+\trowd\trgaph108\trleft0
+\cellx3000\cellx4200\cellx5400\cellx6600\cellx7800\cellx9300
+\intbl Passive probe High Voltage\cell
+\intbl TBD\cell
+\intbl TBD\cell
+\intbl TBD\cell
+\intbl TBD\cell
+\intbl TBD\cell\row
+
+\par
+\b Discussion (Part 1)\b0\par
+The probe type significantly influences the measured waveform at the switching node, especially the observed ringing amplitude and duration. Differential probing reduces ground-referencing issues, while passive probes can introduce artifacts through ground lead inductance and probe capacitance. Low-Z probing changes the loading and can alter ringing behavior; it may also increase probe dissipation and limit measurable voltage range. Bandwidth limitations of probe and oscilloscope can distort rise/fall time and overshoot measurements.\par
+\par
+
+\b 2.4.2 Measurement Evaluation for Part 2 (gate charge determination)\b0\par
+\b Method and assumptions\b0\par
+With Rg = 3.3 ohm, the gate current is calculated from the measured gate resistor voltage and gate charge is obtained by integrating the current over the switching transition interval. Measurement errors can be introduced by probe capacitance (\~1 pF), limited CMRR in high-side measurements, and bandwidth/noise limitations.\par
+\par
+\b Results tables (to be filled)\b0\par
+\b EPC2202\b0\par
+\trowd\trgaph108\trleft0
+\cellx2500\cellx5500\cellx8500
+\intbl\b Gate Voltage\b0\cell
+\intbl\b Qg,HS\b0\cell
+\intbl\b Qg,LS\b0\cell\row
+\trowd\trgaph108\trleft0
+\cellx2500\cellx5500\cellx8500
+\intbl 15 V\cell\intbl TBD\cell\intbl TBD\cell\row
+\trowd\trgaph108\trleft0
+\cellx2500\cellx5500\cellx8500
+\intbl 20 V\cell\intbl TBD\cell\intbl TBD\cell\row
+\trowd\trgaph108\trleft0
+\cellx2500\cellx5500\cellx8500
+\intbl 30 V\cell\intbl TBD\cell\intbl TBD\cell\row
+\par
+
+\b GS61008T\b0\par
+\trowd\trgaph108\trleft0
+\cellx2500\cellx5500\cellx8500
+\intbl\b Gate Voltage\b0\cell
+\intbl\b Qg,HS\b0\cell
+\intbl\b Qg,LS\b0\cell\row
+\trowd\trgaph108\trleft0
+\cellx2500\cellx5500\cellx8500
+\intbl 15 V\cell\intbl TBD\cell\intbl TBD\cell\row
+\trowd\trgaph108\trleft0
+\cellx2500\cellx5500\cellx8500
+\intbl 20 V\cell\intbl TBD\cell\intbl TBD\cell\row
+\trowd\trgaph108\trleft0
+\cellx2500\cellx5500\cellx8500
+\intbl 30 V\cell\intbl TBD\cell\intbl TBD\cell\row
+\par
+
+\b Discussion (Part 2)\b0\par
+Gate charge values are expected to increase with higher gate drive voltage. Differences between HS and LS measurements may occur due to probing constraints and reference conditions. High-side measurement is sensitive to common-mode disturbances and requires careful probing. The stated probe capacitance (\~1 pF) is considered as an error source because fast dv/dt can create displacement currents that affect the measurement.\par
+
+}
